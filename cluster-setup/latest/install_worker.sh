@@ -2,7 +2,7 @@
 
 # Source: https://kubernetes.io/docs/reference/setup-tools/kubeadm
 
-KUBE_VERSION=1.32.5
+KUBE_VERSION=1.35.0
 
 set -e
 
@@ -95,13 +95,13 @@ EOF
 apt-get update
 apt-get install -y apt-transport-https ca-certificates
 mkdir -p /etc/apt/keyrings
-rm /etc/apt/keyrings/kubernetes-1-32-apt-keyring.gpg || true
-rm /etc/apt/keyrings/kubernetes-1-31-apt-keyring.gpg || true
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-1-32-apt-keyring.gpg
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-1-31-apt-keyring.gpg
+rm /etc/apt/keyrings/kubernetes-1-35-apt-keyring.gpg || true
+rm /etc/apt/keyrings/kubernetes-1-34-apt-keyring.gpg || true
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-1-35-apt-keyring.gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-1-34-apt-keyring.gpg
 echo > /etc/apt/sources.list.d/kubernetes.list
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-1-32-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-1-31-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-1-35-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-1-34-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 apt-get --allow-unauthenticated update
 apt-get --allow-unauthenticated install -y containerd kubelet=${KUBE_VERSION}-1.1 kubeadm=${KUBE_VERSION}-1.1 kubectl=${KUBE_VERSION}-1.1 kubernetes-cni
 
